@@ -34,7 +34,7 @@ const ComprasSchema = Schema({
     },
     detalle_comp:{
             type: Array,
-            items:[Schema.Types.ObjectId],
+            items:[Schema.Types.Array],
             ref: 'Detalle_Producto'
 
     }
