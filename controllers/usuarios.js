@@ -30,7 +30,7 @@ const crearUsuario = async(req, res = response) => {
 
     try {
 
-        const existeusuario = await Usuario.findOne({ nom_usuario });
+        const existeusuario = await Usuario.findOne({nom_usuario});
 
         if ( existeusuario ) {
             return res.status(400).json({
