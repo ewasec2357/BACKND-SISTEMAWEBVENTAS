@@ -50,7 +50,7 @@ const CanchasSchema = Schema({
     estado: {
         type: String,
         required: true,
-        enum:["Alquilado,Pendiente,Anulado"],
+        enum:["Alquilado","Pendiente","Anulado"],
         default:'Alquilado'
     },
 }, 

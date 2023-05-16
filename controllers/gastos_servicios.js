@@ -64,7 +64,7 @@ const actualizarGastos_Servicios = async (req, res = response) => {
 
         res.json({
             ok: true,
-            productos: gastos_serviciosActualizado
+            gastos_servicios: gastos_serviciosActualizado
         })
 
     } catch (error) {
