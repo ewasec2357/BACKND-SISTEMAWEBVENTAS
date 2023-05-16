@@ -2,16 +2,16 @@ const { Schema, model } = require('mongoose');
 
 const CanchasSchema = Schema({
 
-    codigo: {
+    cod_cancha: {
         type: String,
         required:true
     },
-    cancha: {
+    ubi_cancha: {
         type: String,
         required:true,
         enum:["Cancha 1","Cancha 2"]
     },
-    persona: {
+    cli_cancha: {
         type: String,
         required:true
     },
@@ -19,7 +19,7 @@ const CanchasSchema = Schema({
         type: Date,
         required:true
     },
-    hora_inicio: {
+    hora_ini: {
         type: String,
         required:true
     },
@@ -27,7 +27,7 @@ const CanchasSchema = Schema({
         type: String,
         required:true
     },
-    turno: {
+    turno_alq: {
         type: String,
         required:true,
         enum:["Mañana","Tarde","Noche"]
@@ -37,13 +37,13 @@ const CanchasSchema = Schema({
         required:true,
         enum:["Efectivo","Yape","Efectivo y Yape","Hora Gratis"]
     },
-    pago_efectivo:{
+    monto_efect:{
         type:Number
     },
-    pago_yape:{
+    monto_yape:{
         type:Number
     },
-    total:{
+    monto_total:{
         type:Number,
         required:true
     },
