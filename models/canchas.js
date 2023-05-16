@@ -48,10 +48,9 @@ const CanchasSchema = Schema({
         required:true
     },
     estado: {
-        type: String,
+        type: Boolean,
         required: true,
-        enum:["Alquilado","Pendiente","Anulado"],
-        default:'Alquilado'
+        default:true
     },
 }, 
 
