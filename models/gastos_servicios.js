@@ -3,7 +3,10 @@ const { Schema, model } = require('mongoose');
 const Gastos_ServiciosSchema = Schema({
 
     docum_gasto: {
-        type: String
+        type: String,
+        required:true,
+        enum:["Boleta","Factura"],
+        default:'Factura'
     },
     prove_gasto: {
         type: String,
@@ -22,8 +25,7 @@ const Gastos_ServiciosSchema = Schema({
         required:true
     },
     igv_gasto:{
-        type:Number,
-        required:true
+        type:Number
     },
     tot_gasto:{
         type:Number,
