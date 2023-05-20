@@ -5,7 +5,7 @@ const getCompras = async(req, res) => {
 
     const desde = Number(req.query.desde) || 0;
 
-    const [ compras, total ] = await Promise.all([Compras.find({}, 
+    const [ compras, total ] = await Promise.all([Compras.find({estado:true}, 
                 'numero_comp  prov_comp ruc_comp fecha_comp subtot_comp igv_comp tot_comp')
                 .populate('Detalle_Producto','nom_prod desc_unid fact_multip cant_prod prec_prod total_prod')
                 .skip( desde ),
@@ -50,22 +50,22 @@ const actualizarCompra = async (req, res = response) => {
     const id  = req.params.id;
     
     try {
-        const productosDB = await Productos.findById( id );
+        const comprasDB = await Compras.findById( id );
 
-        if ( !productosDB ) {
+        if ( !comprasDB ) {
             return res.status(404).json({
                 ok: true,
-                msg: 'Producto no encontrado por id',
+                msg: 'La compra no fue encontrada por id',
             });
         }
 
-        const cambiosproductos = { ...req.body,productos: id }
+        const cambioscompras = { ...req.body,compras: id }
 
-        const productoActualizado = await Productos.findByIdAndUpdate( id, cambiosproductos, { new: true } )
+        const compraActualizado = await Compras.findByIdAndUpdate( id, cambioscompras, { new: true } )
 
         res.json({
             ok: true,
-            productos: productoActualizado
+            productos: compraActualizado
         })
 
     } catch (error) {
@@ -85,20 +85,20 @@ const borrarCompra = async (req, res = response) => {
 
     try {
         
-        const productos = await Productos.findById( id );
+        const compras = await Compras.findById( id );
 
-        if ( !productos ) {
+        if ( !compras ) {
             return res.status(404).json({
                 ok: true,
-                msg: 'El producto no fue encontrado por id',
+                msg: 'La compra no fue encontrada por id',
             });
         }
 
-        await Productos.findByIdAndDelete( id );
+        await Compras.findByIdAndDelete( id );
 
         res.json({
             ok: true,
-            msg: 'Producto borrado'
+            msg: 'Compra borrada'
         }); 
 
     } catch (error) {

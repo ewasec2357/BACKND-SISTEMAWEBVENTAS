@@ -5,7 +5,7 @@ const getDetalle_productos = async(req, res) => {
 
     const desde = Number(req.query.desde) || 0;
 
-    const [ detalle_producto, total ] = await Promise.all([Detalle_Producto.find({}, 
+    const [ detalle_producto, total ] = await Promise.all([Detalle_Producto.find({estado:true}, 
                 'desc_unid fact_multip cant_prod prec_prod total_prod')
                 .populate('Productos','nom_prod')
                 .skip( desde ),

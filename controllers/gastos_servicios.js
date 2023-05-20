@@ -5,7 +5,7 @@ const getGastos_Servicios = async(req, res) => {
 
     const desde = Number(req.query.desde) || 0;
 
-    const [ gastos_servicios, total ] = await Promise.all([Gastos_Servicios.find({}, 
+    const [ gastos_servicios, total ] = await Promise.all([Gastos_Servicios.find({estado:true}, 
                 'docum_gasto prove_gasto fecha_gasto desc_gasto subtot_gasto igv_gasto tot_gasto estado')
                 .skip( desde ),
        Gastos_Servicios.countDocuments()

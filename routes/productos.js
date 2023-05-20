@@ -19,18 +19,14 @@ router.post( '/',
         validarJWT,
         check('nom_prod', 'El nombre de la categoria es obligatorio').not().isEmpty(),
         check('id_cat', 'El nombre de la categoria es obligatorio').not().isEmpty(),
-    
+        check('prec_prod','El precio del producto es obligatorio').not().isEmpty(),
         validarCampos,
     ], 
     crearProducto 
 );
 
 router.put( '/:id',
-    [
-        validarJWT,
-        check('nom_prod', 'El nombre de la categoria es obligatorio').not().isEmpty(),
-        validarCampos,
-    ],
+    validarJWT,       
     actualizarProducto
 );
 

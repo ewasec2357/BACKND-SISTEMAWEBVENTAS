@@ -24,12 +24,7 @@ router.post( '/',
 );
 
 router.put( '/:id',
-    [
-        validarJWT,
-        check('nom_usuario', 'El nombre es obligatorio').not().isEmpty(),
-        check('password', 'El dni es obligatorio').isLength({ min: 8 }).not().isEmpty(), 
-        validarCampos,
-    ],
+    validarJWT,
     actualizarUsuario
 );
 

@@ -7,10 +7,7 @@ const ComprasSchema = Schema({
     },
     prov_comp: {
         type: String,
-    }, 
-    ruc_comp: {
-        type: String,
-    }, 
+    },  
     fecha_comp: {
         type: Date,
         required:true

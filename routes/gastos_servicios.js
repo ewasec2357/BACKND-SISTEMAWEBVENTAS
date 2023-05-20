@@ -28,7 +28,7 @@ router.post( '/',
 );
 
 router.put( '/:id', 
-        validarJWT,
+    validarJWT,
     actualizarGastos_Servicios
 );
 

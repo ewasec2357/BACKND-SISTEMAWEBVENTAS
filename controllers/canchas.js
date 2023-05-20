@@ -1,14 +1,14 @@
-const { response } = require('express');
-const Canchas = require('../models/canchas');
+import { response } from 'express';
+import Canchas, { find, countDocuments, findOne, findById, findByIdAndUpdate, findByIdAndDelete } from '../models/canchas';
 
 const getCanchas = async(req, res) => {
 
     const desde = Number(req.query.desde) || 0;
 
-    const [ canchas, total ] = await Promise.all([Canchas.find({}, 
+    const [ canchas, total ] = await Promise.all([find({estado:true}, 
                 'cod_cancha ubi_cancha cli_cancha fecha_alq hora_ini hora_fin turno_alq tipo_pago monto_efect monto_yape monto_total estado')
                 .skip( desde ),
-       Canchas.countDocuments()
+       countDocuments()
     ]);
 
 
@@ -26,7 +26,7 @@ const crearCancha = async(req, res) => {
 
     try {
 
-        const existecancha = await Canchas.findOne({cod_cancha});
+        const existecancha = await findOne({cod_cancha});
 
         if ( existecancha ) {
             return res.status(400).json({
@@ -60,7 +60,7 @@ const actualizarCancha = async (req, res = response) => {
     const id  = req.params.id;
     
     try {
-        const canchasDB = await Canchas.findById( id );
+        const canchasDB = await findById( id );
 
         if ( !canchasDB ) {
             return res.status(404).json({
@@ -71,7 +71,7 @@ const actualizarCancha = async (req, res = response) => {
 
         const cambioscanchas = { ...req.body,canchas: id }
 
-        const canchasActualizado = await Canchas.findByIdAndUpdate( id, cambioscanchas, { new: true } )
+        const canchasActualizado = await findByIdAndUpdate( id, cambioscanchas, { new: true } )
 
         res.json({
             ok: true,
@@ -95,7 +95,7 @@ const borrarCancha = async (req, res = response) => {
 
     try {
         
-        const canchas = await Canchas.findById( id );
+        const canchas = await findById( id );
 
         if ( !canchas ) {
             return res.status(404).json({
@@ -104,7 +104,7 @@ const borrarCancha = async (req, res = response) => {
             });
         }
 
-        await Canchas.findByIdAndDelete( id );
+        await findByIdAndDelete( id );
 
         res.json({
             ok: true,
@@ -123,7 +123,7 @@ const borrarCancha = async (req, res = response) => {
 }
 
 
-module.exports = {
+export default {
     getCanchas,
     crearCancha,
     actualizarCancha,

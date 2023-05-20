@@ -10,7 +10,7 @@ const DetalleProductoSchema = Schema({
     desc_unid: {
         type: String,
         required:true,
-        enum:["paquete","unidad","caja"]
+        enum:["Paquete","Unidad","Caja"]
     }, 
     fact_multip:{
         type:Number,

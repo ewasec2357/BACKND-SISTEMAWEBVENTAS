@@ -29,11 +29,8 @@ router.post( '/',
 );
 
 router.put( '/:id',
-    [
-        validarJWT,
-        check('nom_prod', 'El nombre de la categoria es obligatorio').not().isEmpty(),
-        validarCampos,
-    ],
+    
+    validarJWT,
     actualizarDetalle_producto
 );
 

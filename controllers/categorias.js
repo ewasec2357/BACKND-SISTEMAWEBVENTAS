@@ -6,7 +6,7 @@ const getCategorias = async(req, res) => {
 
     const desde = Number(req.query.desde) || 0;
 
-    const [ categorias, total ] = await Promise.all([Categorias.find({}, 'nom_cat')
+    const [ categorias, total ] = await Promise.all([Categorias.find({estado:true}, 'nom_cat')
             .skip( desde ),
 
             Categorias.countDocuments()

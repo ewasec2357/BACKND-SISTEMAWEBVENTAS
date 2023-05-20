@@ -6,7 +6,6 @@ const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 
 const { getCompras, crearCompra, actualizarCompra, borrarCompra } = require('../controllers/compras');
-const { getDetalle_productos, crearDetalle_producto, actualizarDetalle_producto, borrarDetalle_producto } = require('../controllers/detalle_producto');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 
@@ -21,27 +20,15 @@ router.post( '/',
         check('fecha_comp', 'La fecha de compra es obligatoria').not().isEmpty(),
         check('subtot_comp', 'El subtotal de la compra es obligatorio').not().isEmpty(),
         check('igv_comp', 'El igv de la compra es obligatorio').not().isEmpty(),
-        check('tot_comp', 'El total de la compra de la categoria es obligatorio').not().isEmpty(),
-        
-        //check('nom_prod', 'El nombre del producto es obligatorio').not().isEmpty(),
-        //check('desc_unid', 'El nombre de la descripción de la unidad es obligatoria').not().isEmpty(),
-        //check('fact_multip', 'El factor de multiplicación es obligatorio').not().isEmpty(),
-        //check('cant_prod', 'La cantidad del producto es obligatorio').not().isEmpty(),
-        //check('prec_prod', 'El precio del producto es obligatorio').not().isEmpty(),
-        //check('total_prod', 'El total del producto es obligatorio').not().isEmpty(),
-   
+        check('tot_comp', 'El total de la compra es obligatorio').not().isEmpty(),
+        check('detalle_comp', 'El detalle de la compra es obligatorio').not().isEmpty(),
         validarCampos,
     ], 
-    crearCompra,
-    crearDetalle_producto 
+    crearCompra, 
 );
 
 router.put( '/:id',
-    [
-        validarJWT,
-        check('nom_prod', 'El nombre de la categoria es obligatorio').not().isEmpty(),
-        validarCampos,
-    ],
+    validarJWT,
     actualizarCompra
 );
 

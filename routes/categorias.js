@@ -24,14 +24,9 @@ router.post( '/',
     crearCategoria 
 );
 
-router.put( '/:id',
-    [
-        validarJWT,
-        check('nom_cat', 'El nombre de la categoria es obligatorio').not().isEmpty(),
-        validarCampos,
-    ],
-    actualizarCategoria
-);
+router.put( '/:id', 
+    validarJWT, 
+    actualizarCategoria );
 
 router.delete( '/:id',
     validarJWT,

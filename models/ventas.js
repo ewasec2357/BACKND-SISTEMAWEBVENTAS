@@ -2,17 +2,9 @@ const { Schema, model } = require('mongoose');
 
 const VentasSchema = Schema({
 
-    serie_venta: {
-        type: String
-    },
-    correlat_venta: {
-        type: String
-    },
-    cliente_venta: {
-        type: String
-    },
-    dni_venta: {
-        type: String
+    alq_cochera:{
+        type: Number,
+        required:true
     },
     fecha_venta:{
         type: Date,
