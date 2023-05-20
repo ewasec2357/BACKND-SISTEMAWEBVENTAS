@@ -1,11 +1,11 @@
-import { response } from 'express';
-import Ventas, { find, countDocuments, findById, findByIdAndDelete } from '../models/ventas';
+const { response } = require('express');
+const Ventas = require('../models/ventas');
 
 const getVentas = async(req, res) => {
 
     const desde = Number(req.query.desde) || 0;
 
-    const [ ventas, total ] = await Promise.all([find({estado:true}, 
+    const [ ventas, total ] = await Promise.all([Ventas.find({estado:true}, 
                 'alq_cochera fecha_venta subtot_venta igv_venta tot_venta detalle_venta ')
                 .skip( desde ),
        countDocuments()
@@ -49,7 +49,7 @@ const actualizarVenta = async (req, res = response) => {
     const id  = req.params.id;
     
     try {
-        const ventasDB = await findById( id );
+        const ventasDB = await Ventas.findById( id );
 
         if ( !ventasDB ) {
             return res.status(404).json({
@@ -84,7 +84,7 @@ const borrarVenta = async (req, res = response) => {
 
     try {
         
-        const ventas = await findById( id );
+        const ventas = await Ventas.findById( id );
 
         if ( !ventas ) {
             return res.status(404).json({
@@ -93,7 +93,7 @@ const borrarVenta = async (req, res = response) => {
             });
         }
 
-        await findByIdAndDelete( id );
+        await Ventas.findByIdAndDelete( id );
 
         res.json({
             ok: true,
