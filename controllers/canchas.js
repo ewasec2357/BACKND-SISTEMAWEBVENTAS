@@ -8,7 +8,7 @@ const getCanchas = async(req, res) => {
     const [ canchas, total ] = await Promise.all([Canchas.find({estado:true}, 
                 'cod_cancha ubi_cancha cli_cancha fecha_alq hora_ini hora_fin turno_alq tipo_pago monto_efect monto_yape monto_total estado')
                 .skip( desde ),
-       countDocuments()
+                Canchas.countDocuments()
     ]);
 
 
