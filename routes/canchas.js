@@ -5,7 +5,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 
-const { getCanchas, crearCancha, actualizarCancha, borrarCancha } = require('../controllers/canchas').default;
+const { getCanchas, crearCancha, actualizarCancha, borrarCancha } = require('../controllers/canchas');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 

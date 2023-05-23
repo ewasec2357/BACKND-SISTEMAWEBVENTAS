@@ -112,7 +112,7 @@ const borrarVenta = async (req, res = response) => {
 }
 
 
-export  {
+module.exports = {
     getVentas,
     crearVenta,
     actualizarVenta,
