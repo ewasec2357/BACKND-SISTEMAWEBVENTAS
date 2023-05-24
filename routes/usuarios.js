@@ -28,6 +28,11 @@ router.put( '/:id',
     actualizarUsuario
 );
 
+router.patch( '/:id',
+    validarJWT,
+    actualizarUsuario
+);
+
 router.delete( '/:id',
     validarJWT,
     borrarUsuario
