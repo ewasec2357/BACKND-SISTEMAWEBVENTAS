@@ -4,7 +4,6 @@ const UsuarioSchema = Schema({
 
     nom_usuario: {
         type: String,
-        unique:true,
         required: true
     },
     password: {
