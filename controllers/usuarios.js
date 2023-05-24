@@ -8,7 +8,7 @@ const getUsuarios = async(req, res) => {
 
     const desde = Number(req.query.desde) || 0;
 
-    const [ usuarios, total ] = await Promise.all([Usuario.find({estado:true},'nom_usuario')
+    const [ usuarios, total ] = await Promise.all([Usuario.find({estado:true},'nom_usuario rol')
             //.populate('especialidad','nombre')
             .skip( desde ),
 
