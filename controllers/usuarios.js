@@ -104,14 +104,14 @@ const actualizarUsuario = async (req, res = response) => {
         // Y ASIGNAMOS NUEVAMENTE EL CAMPO 'password' al objeto 'campos' para actualizar la BD
         console.log(password)
 
-        if( password !== null || password !== '' || password !== undefined){
+        if( password !== null || password !== '' || password !== 'undefined'){
             campos.password = bcrypt.hashSync(password, bcrypt.genSaltSync());// LE ASIGNAMOS EL 'password' nuevo encriptado
         } else {
             campos.password = usuarioDB.password; // LE ASIGNAMOS NUEVAMENTE EL 'password' ORIGINAL
         }
 
         // VALIDAMOS Y ASIGNAMOS NUEVAMENTE EL CAMPO 'nom_usuario' al objeto 'campos' para actualizar la BD
-        if( nom_usuario !== null || nom_usuario !== '' || nom_usuario !== undefined){
+        if( nom_usuario !== null || nom_usuario !== '' || nom_usuario !== 'undefined'){
             campos.nom_usuario = nom_usuario; // LE ASIGNAMOS EL NUEVO VALOR DEL CAMPO 'nom_usuario'
         } else {
             campos.nom_usuario = usuarioDB.nom_usuario; // LE ASIGNAMOS NUEVAMENTE EL 'nom_usuario' ORIGINAL
