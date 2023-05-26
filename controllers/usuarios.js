@@ -104,7 +104,7 @@ const actualizarUsuario = async (req, res = response) => {
         // Y ASIGNAMOS NUEVAMENTE EL CAMPO 'password' al objeto 'campos' para actualizar la BD
         console.log(password)
 
-        if( password !== null || password !== '' || password !== "undefined"){
+        if( password !== null || password !== "" || password !== "undefined"){
             campos.password = bcrypt.hashSync(password, bcrypt.genSaltSync());// LE ASIGNAMOS EL 'password' nuevo encriptado
         } else {
             campos.password = usuarioDB.password; // LE ASIGNAMOS NUEVAMENTE EL 'password' ORIGINAL
