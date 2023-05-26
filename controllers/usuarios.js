@@ -100,7 +100,20 @@ const actualizarUsuario = async (req, res = response) => {
             }
         }
 
-        campos.password = password ? bcrypt.hashSync(password, bcrypt.genSaltSync()) : campos.password;
+        // VALIDAMOS QUE EL 'password' VENGA, DE LO CONTRARIO SE MANTIENE EL 'password' ORIGINAL
+        // Y ASIGNAMOS NUEVAMENTE EL CAMPO 'password' al objeto 'campos' para actualizar la BD
+        if( password !== null || password !== '' || password !== undefined){
+            campos.password = bcrypt.hashSync(password, bcrypt.genSaltSync());// LE ASIGNAMOS EL 'password' nuevo encriptado
+        } else {
+            campos.password = usuarioDB.password; // LE ASIGNAMOS NUEVAMENTE EL 'password' ORIGINAL
+        }
+
+        // VALIDAMOS Y ASIGNAMOS NUEVAMENTE EL CAMPO 'nom_usuario' al objeto 'campos' para actualizar la BD
+        if( nom_usuario !== null || nom_usuario !== '' || nom_usuario !== undefined){
+            campos.nom_usuario = nom_usuario; // LE ASIGNAMOS EL NUEVO VALOR DEL CAMPO 'nom_usuario'
+        } else {
+            campos.nom_usuario = usuarioDB.nom_usuario; // LE ASIGNAMOS NUEVAMENTE EL 'nom_usuario' ORIGINAL
+        }
 
         const usuarioActualizado = await Usuario.findByIdAndUpdate( uid, campos, { new: true } );
 
