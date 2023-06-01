@@ -35,7 +35,7 @@ const CanchasSchema = Schema({
     tipo_pago: {
         type: String,
         required:true,
-        enum:["Efectivo","Yape","Efectivo y Yape","Hora Gratis"]
+        enum:["Efectivo","Yape","Efectivo y Yape","Hora Gratis","A cuenta"]
     },
     monto_efect:{
         type:Number
@@ -46,6 +46,9 @@ const CanchasSchema = Schema({
     monto_total:{
         type:Number,
         required:true
+    },
+    msj_alq:{
+        type:String
     },
     estado: {
         type: Boolean,

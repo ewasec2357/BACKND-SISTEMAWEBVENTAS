@@ -6,7 +6,7 @@ const getCanchas = async(req, res) => {
     const desde = Number(req.query.desde) || 0;
 
     const [ canchas, total ] = await Promise.all([Canchas.find({estado:true}, 
-                'cod_cancha ubi_cancha cli_cancha fecha_alq hora_ini hora_fin turno_alq tipo_pago monto_efect monto_yape monto_total estado')
+                'cod_cancha ubi_cancha cli_cancha fecha_alq hora_ini hora_fin turno_alq tipo_pago monto_efect monto_yape monto_total msj_alq estado')
                 .skip( desde ),
                 Canchas.countDocuments()
     ]);
@@ -22,27 +22,24 @@ const getCanchas = async(req, res) => {
 
 const crearCancha = async(req, res) => {
 
-    const { cod_cancha } = req.body;
-
+    const { cod_cancha, ubi_cancha } = req.body;
     try {
 
-        const existecancha = await Canchas.findOne({cod_cancha});
-
+        const existecancha = await Canchas.findOne({'cod_cancha':cod_cancha,'ubi_cancha':ubi_cancha });
         if ( existecancha ) {
-            return res.status(400).json({
-                ok: false,
-                msg: 'El codigo de cancha ya está registrado'
-            });
+                    return res.status(400).json({
+                     ok: false,
+                        msg: 'El codigo ya está registrado en '+ existecancha.ubi_cancha
+                    });              
         }
-
-        const canchas = new Canchas( req.body) 
+        const canchas = new Canchas(req.body) 
 
         const canchasDB = await canchas.save()
         res.json({
             ok: true,
             canchasDB
-        }) 
-        ;
+        }) ;
+        
 
     } catch (error) {
         console.log(error)
