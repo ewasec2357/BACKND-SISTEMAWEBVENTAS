@@ -11,11 +11,11 @@ const fileUpload = ( req, res = response ) => {
     const id   = req.params.id;
 
     // Validar tipo
-    const tiposValidos = ['usuarios'];
+    const tiposValidos = ['usuarios','productos'];
     if ( !tiposValidos.includes(tipo) ){
         return res.status(400).json({
             ok: false,
-            msg: 'No es un usuario'
+            msg: 'El tipo de imagen correspondiente no es correcto'
         });
     }
 

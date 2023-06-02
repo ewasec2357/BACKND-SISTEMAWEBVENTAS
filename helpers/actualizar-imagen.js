@@ -1,4 +1,5 @@
 const Usuario = require('../models/usuario');
+const Productos = require('../models/productos');
 const fs = require('fs');
 
 
@@ -30,8 +31,25 @@ const actualizarImagen = async(tipo, id, nombreArchivo) => {
             await usuario.save();
             return true;
         break;
+
+        case 'productos':
+
+            const productos = await Productos.findById(id);
+            if ( !productos ) {
+                console.log('No es un producto por id');
+                return false;
+            }
+
+            pathViejo = `./uploads/productos/${ productos.img }`;
+            borrarImagen( pathViejo );
+
+            productos.img = nombreArchivo;
+            await productos.save();
+            return true;
+        break;
     }
-}
+    }
+
 
 module.exports = { 
     actualizarImagen
