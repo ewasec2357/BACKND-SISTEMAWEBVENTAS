@@ -59,7 +59,14 @@ const renovarToken = async(req,res = response) =>{
 
 }
 
+const validarToken = async(req,res = response) =>{
+    
+    console.log('controller')
+
+}
+
 module.exports = {
     login,
-    renovarToken
+    renovarToken,
+    validarToken
 }

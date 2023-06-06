@@ -4,13 +4,9 @@ const generarJWT = ( uid ) => {
 
     return new Promise( ( resolve, reject ) => {
 
-        const payload = {
-            uid,
-        };
+        const payload = { uid,};
     
-        jwt.sign( payload, process.env.JWT_SECRET, {
-            expiresIn: '12h'
-        }, ( err, token ) => {
+        jwt.sign( payload, process.env.JWT_SECRET, {expiresIn: '120s'}, ( err, token ) => {
     
             if ( err ) {
                 console.log(err);
@@ -18,11 +14,8 @@ const generarJWT = ( uid ) => {
             } else {
                 resolve( token );
             }
-    
         });
-
     });
-
 }
 
 
