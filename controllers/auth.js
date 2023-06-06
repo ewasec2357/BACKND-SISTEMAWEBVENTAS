@@ -59,9 +59,13 @@ const renovarToken = async(req,res = response) =>{
 
 }
 
-const validarToken = async(req,res = response) =>{
+const validarToken = async(res = response) =>{
     
     console.log('controller')
+    
+    res.json({
+        ok: true
+    })
 
 }
 
