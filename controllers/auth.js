@@ -59,15 +59,26 @@ const renovarToken = async(req,res = response) =>{
 
 }
 
-const validarToken = async(res = response) =>{
-    
-    console.log('controller')
-    
-    res.json({
-        ok: true
-    })
+const validarToken = ( req, res = response ) => {
+
+
+
+    try {     
+        res.json({
+            ok: true, 
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+    }
+
 
 }
+
 
 module.exports = {
     login,
