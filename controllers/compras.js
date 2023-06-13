@@ -6,7 +6,7 @@ const getCompras = async(req, res) => {
     const desde = Number(req.query.desde) || 0;
 
     const [ compras, total ] = await Promise.all([Compras.find({estado:true}, 
-                'numero_comp  prov_comp ruc_comp fecha_comp subtot_comp igv_comp tot_comp')
+                'numero_comp ruc_comp tipo_doc_comp prov_comp fecha_comp subtot_comp igv_comp tot_comp')
                 .populate('Detalle_Producto','nom_prod desc_unid fact_multip cant_prod prec_prod total_prod')
                 .skip( desde ),
        Compras.countDocuments()

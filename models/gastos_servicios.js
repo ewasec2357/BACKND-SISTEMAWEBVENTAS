@@ -5,8 +5,8 @@ const Gastos_ServiciosSchema = Schema({
     docum_gasto: {
         type: String,
         required:true,
-        enum:["Boleta","Factura"],
-        default:'Factura'
+        enum:["BOLETA","FACTURA"],
+        default:'FACTURA'
     },
     prove_gasto: {
         type: String,

@@ -5,6 +5,15 @@ const ComprasSchema = Schema({
     numero_comp: {
         type: String,
     },
+    ruc_comp:{
+        type: String
+    },
+    tipo_doc_comp: {
+        type: String,
+        enum:["BOLETA","FACTURA"],
+        default:"FACTURA",
+        required: true
+    },
     prov_comp: {
         type: String,
     },  

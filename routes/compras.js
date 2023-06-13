@@ -18,6 +18,7 @@ router.post( '/',
     [   
         validarJWT,
         check('fecha_comp', 'La fecha de compra es obligatoria').not().isEmpty(),
+        check('tipo_doc_comp', 'El tipo de documento de compra es obligatorio').not().isEmpty(),
         check('subtot_comp', 'El subtotal de la compra es obligatorio').not().isEmpty(),
         check('igv_comp', 'El igv de la compra es obligatorio').not().isEmpty(),
         check('tot_comp', 'El total de la compra es obligatorio').not().isEmpty(),
