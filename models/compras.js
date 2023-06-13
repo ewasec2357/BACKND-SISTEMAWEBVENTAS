@@ -14,7 +14,7 @@ const ComprasSchema = Schema({
         default:"FACTURA",
         required: true
     },
-    prov_comp: {
+    prove_comp: {
         type: String,
     },  
     fecha_comp: {
