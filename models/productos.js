@@ -6,6 +6,9 @@ const ProductosSchema = Schema({
         type: String,
         required:true
     },
+    barcode: {
+        type: String
+    },
     id_cat: {
         type: Schema.Types.ObjectId,
         ref: 'Categorias',
