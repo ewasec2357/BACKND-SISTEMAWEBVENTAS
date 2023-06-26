@@ -30,6 +30,7 @@ app.use( '/api/ventas',            require('./routes/ventas'));
 app.use( '/api/canchas',           require('./routes/canchas'));
 app.use( '/api/detalle_producto',  require('./routes/detalle_producto'));
 app.use( '/api/gastos_servicios',  require('./routes/gastos_servicios'));
+app.use( '/api/ventatemporal',     require('./routes/venta_temporal'));
 
 
 
