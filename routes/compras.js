@@ -5,7 +5,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 
-const { getCompras, crearCompra, actualizarCompra, borrarCompra } = require('../controllers/compras');
+const { getCompras, crearCompra, borrarCompra } = require('../controllers/compras');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 
@@ -26,11 +26,6 @@ router.post( '/',
         validarCampos,
     ], 
     crearCompra, 
-);
-
-router.put( '/:id',
-    validarJWT,
-    actualizarCompra
 );
 
 router.delete( '/:id',

@@ -1,5 +1,6 @@
 const { response } = require('express');
 const Compras = require('../models/compras');
+const Productos = require('../models/productos');
 
 const getCompras = async(req, res) => {
 
@@ -24,15 +25,42 @@ const getCompras = async(req, res) => {
 const crearCompra = async(req, res) => {
 
     
-    const compras = new Compras( req.body) 
+    const compras = new Compras( req.body)
 
     try {
         const comprasDB = await compras.save()
+
+        const productosNewStockArray = [];
+
+        await Promise.all(compras.detalle_comp.map(async (producto) => {
+            
+            const { nom_prod, fact_multip, cant_prod } = producto;
+
+            const existeProducto = await Productos.findOne({nom_prod});
+            
+            if ( !existeProducto ) {
+                return res.status(404).json({
+                    ok: true,
+                    msg: 'El producto no está registrado',
+                });
+            }
+
+            console.log(existeProducto)
+
+            existeProducto.stock_prod = existeProducto.stock_prod + (fact_multip * cant_prod)
+
+            const productoActualizado = await Productos.findByIdAndUpdate( existeProducto._id, existeProducto, { new: true } )
+
+            productosNewStockArray.push({ _id: existeProducto._id, producto: existeProducto.nom_prod, Stock_Actual: productoActualizado.stock_prod})
+
+          })
+        );
+
         res.json({
             ok: true,
-            comprasDB
-        }) 
-        ;
+            comprasDB,
+            stockActualizado: productosNewStockArray
+        });
 
     } catch (error) {
         console.log(error)
@@ -43,40 +71,6 @@ const crearCompra = async(req, res) => {
     }
 
 
-}
-
-const actualizarCompra = async (req, res = response) => {
-    
-    const id  = req.params.id;
-    
-    try {
-        const comprasDB = await Compras.findById( id );
-
-        if ( !comprasDB ) {
-            return res.status(404).json({
-                ok: true,
-                msg: 'La compra no fue encontrada por id',
-            });
-        }
-
-        const cambioscompras = { ...req.body,compras: id }
-
-        const compraActualizado = await Compras.findByIdAndUpdate( id, cambioscompras, { new: true } )
-
-        res.json({
-            ok: true,
-            productos: compraActualizado
-        })
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            ok: false,
-            msg: 'Hable con el administrador'
-        })
-    }
 }
 
 const borrarCompra = async (req, res = response) => {
@@ -93,15 +87,38 @@ const borrarCompra = async (req, res = response) => {
                 msg: 'La compra no fue encontrada por id',
             });
         }
+        
+        const productosNewStockArray = [];
+        
+        await Promise.all(
+          compras.detalle_comp.map(async (producto) => {
+
+            const { nom_prod, fact_multip, cant_prod } = producto;
+            const existeProducto = await Productos.findOne({nom_prod});
+            
+            if ( !existeProducto ) {
+                return res.status(404).json({
+                    ok: true,
+                    msg: 'El producto no está registrado',
+                });
+            }
+
+            existeProducto.stock_prod = existeProducto.stock_prod - (fact_multip * cant_prod)
+            const productoActualizado = await Productos.findByIdAndUpdate( existeProducto._id, existeProducto, { new: true } )
+            productosNewStockArray.push({ _id: existeProducto._id, producto: existeProducto.nom_prod, Stock_Actual: productoActualizado.stock_prod})
+          })
+        );
 
         await Compras.findByIdAndDelete( id );
 
         res.json({
             ok: true,
-            msg: 'Compra borrada'
-        }); 
+            msg: 'Compra borrada',
+            stockActualizado: productosNewStockArray
+        });
 
-    } catch (error) {
+
+    }catch (error) {
 
         console.log(error);
 
@@ -116,6 +133,5 @@ const borrarCompra = async (req, res = response) => {
 module.exports = {
     getCompras,
     crearCompra,
-    actualizarCompra,
     borrarCompra
 }
