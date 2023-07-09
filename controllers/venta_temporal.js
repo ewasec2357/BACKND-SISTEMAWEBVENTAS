@@ -19,28 +19,29 @@ const getVenta_Temporal = async(req, res) => {
 
 }
 
-const crearVenta_Temporal = async(req, res) => {
-
-    const venta_temporal = new Venta_Temporal( req.body) 
-
+const crearVenta_Temporal = async (req, res) => {
+    const ventas_temporales = req.body; // Suponiendo que req.body es un array de objetos
+  
     try {
-        const venta_temporalDB = await venta_temporal.save()
-        res.json({
-            ok: true,
-            venta_temporalDB
-        }) 
-        ;
-
+      const ventas_temporalesDB = [];
+      for (let i = 0; i < ventas_temporales.length; i++) {
+        const venta_temporal = new Venta_Temporal(ventas_temporales[i]);
+        const venta_temporalDB = await venta_temporal.save();
+        ventas_temporalesDB.push(venta_temporalDB);
+      }
+  
+      res.json({
+        ok: true,
+        ventas_temporalesDB,
+      });
     } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            ok: false,
-            msg: 'Hable con el administrador'
-        })
+      console.log(error);
+      res.status(500).json({
+        ok: false,
+        msg: 'Hable con el administrador',
+      });
     }
-
-
-}
+  }
 
 const actualizarVenta_Temporal = async (req, res = response) => {
     
