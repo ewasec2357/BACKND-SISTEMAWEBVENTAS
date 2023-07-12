@@ -6,8 +6,8 @@ const getProductos = async(req, res) => {
     const desde = Number(req.query.desde) || 0;
 
     const [ productos, total ] = await Promise.all([Productos.find({estado:true}, 
-                //'nom_prod barcode prec_prod id_cat stock_prod img_prod estado')
-                ).populate('Categorias','nom_cat')
+                'nom_prod barcode prec_prod id_cat stock_prod img_prod estado')
+                .populate('Categorias')
                 .skip( desde ),
                 Productos.countDocuments()
     ]);
