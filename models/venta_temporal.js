@@ -2,8 +2,9 @@ const { Schema, model } = require('mongoose');
 
 const Venta_TemporalSchema = Schema({
 
-    vt_nom_prod: {
-        type: String,
+    vt_id_prod: {
+        type: Schema.Types.ObjectId,
+        ref:'Productos',
         required:true
     },
     vt_prec_venta: {
@@ -21,7 +22,12 @@ const Venta_TemporalSchema = Schema({
     vt_fecha:{
         type:Date,
         required:true
+    },
+    estado:{
+        type:Boolean,
+        default: true
     }
+    
 }, 
 
 {  collection: 'Venta_Temporal' });

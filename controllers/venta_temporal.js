@@ -5,8 +5,9 @@ const getVenta_Temporal = async(req, res) => {
 
     const desde = Number(req.query.desde) || 0;
 
-    const [ venta_temporal, total ] = await Promise.all([Venta_Temporal.find({}, 
-                'vt_nom_prod vt_prec_venta vt_cantidad vt_total vt_fecha')
+    const [ venta_temporal, total ] = await Promise.all([Venta_Temporal.find({estado:true}, 
+                'vt_id_prod vt_prec_venta vt_cantidad vt_total vt_fecha')
+                .populate('Productos','nom_prod')
                 .skip( desde ),
                 Venta_Temporal.countDocuments()
     ]);
