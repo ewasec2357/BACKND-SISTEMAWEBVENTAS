@@ -5,7 +5,8 @@ const getProductos = async(req, res = response) => {
 
 
     const productos= await Productos.find()
-                            .populate('categorias','nom_cat estado');
+                            .populate('categorias','nom_cat')
+                            console.log(productos);
 
     res.json({
         ok: true,
