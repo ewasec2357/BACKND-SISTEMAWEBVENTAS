@@ -8,7 +8,7 @@ const getVentas = async(req, res) => {
     const [ ventas, total ] = await Promise.all([Ventas.find({estado:true}, 
                 'alq_cochera fecha_venta subtot_venta igv_venta tot_venta detalle_venta ')
                 .skip( desde ),
-       countDocuments()
+                Ventas.countDocuments()
     ]);
 
 
