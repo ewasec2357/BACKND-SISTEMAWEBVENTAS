@@ -1,14 +1,20 @@
 const { response } = require('express');
 const Productos = require('../models/productos');
 
-const getProductos = async(res) => {
+const getProductos = async(req, res) => {
 
-    const  productos = await Productos.find()
-                .populate('Categorias');
+    const desde = Number(req.query.desde) || 0;
+
+    const [ productos, total ] = await Promise.all([Productos.find()
+                .populate('Categorias')
+                .skip( desde ),
+                Productos.countDocuments()
+    ]);
 
     res.json({
         ok: true,
         productos,
+        total
     });
 
 }
