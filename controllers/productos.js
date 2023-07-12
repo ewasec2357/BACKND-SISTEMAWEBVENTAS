@@ -5,7 +5,7 @@ const getProductos = async(req, res = response) => {
 
 
     const productos= await Productos.find()
-                            .populate('categorias','nom_cat');
+                            .populate('categorias','nom_cat estado');
 
     res.json({
         ok: true,
@@ -14,7 +14,7 @@ const getProductos = async(req, res = response) => {
 
 }
 
-const crearProducto = async(req, res) => {
+const crearProducto = async(req, res = response) => {
 
     const { nom_prod } = req.body;
     const productos = new Productos( req.body) 
