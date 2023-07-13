@@ -18,13 +18,12 @@ const getVenta_Temporal = async(req, res = response) => {
 
 const crearVenta_Temporal = async (req, res) => {
     const ventas_temporales = req.body; // Suponiendo que req.body es un array de objetos
-  
+    
     try {
       const ventas_temporalesDB = [];
       for (let i = 0; i < ventas_temporales.length; i++) {
         const venta_temporal = new Venta_Temporal(ventas_temporales[i]);
         const venta_temporalDB = await venta_temporal.save();
-        console.log(venta_temporal);
         ventas_temporalesDB.push(venta_temporalDB);
       }
   
