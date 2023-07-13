@@ -17,20 +17,15 @@ const VentasSchema = Schema({
     igv_venta:{
         type:Number,
         required:true
-    },
+    }, 
     tot_venta:{
         type:Number,
         required:true
     },
-    estado: {
-        type: Boolean,
-        required: true,
-        default:true
-    },
     detalle_venta:{
         type: Array,
         items:[Schema.Types.ObjectId],
-        ref: 'Detalle_Producto'
+        ref: 'Venta_Temporal'
 }
 }, {  collection: 'Ventas' });
 
