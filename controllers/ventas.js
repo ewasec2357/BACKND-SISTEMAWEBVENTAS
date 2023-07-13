@@ -3,7 +3,7 @@ const Ventas = require('../models/ventas');
 
 const getVentas = async(req, res = response) => {
 
-    const [ ventas, total ] = await Promise.all([Ventas.find({estado:true}, 
+    const [ ventas, total ] = await Promise.all([Ventas.find({}, 
                 'alq_cochera fecha_venta subtot_venta igv_venta tot_venta detalle_venta'),
                 Ventas.countDocuments()
     ]);
