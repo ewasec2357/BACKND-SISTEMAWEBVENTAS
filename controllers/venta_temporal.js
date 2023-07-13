@@ -1,14 +1,10 @@
 const { response } = require('express');
 const Venta_Temporal = require('../models/venta_temporal');
 
-const getVenta_Temporal = async(req, res) => {
+const getVenta_Temporal = async(req, res = response) => {
 
-    const desde = Number(req.query.desde) || 0;
-
-    const [ venta_temporal, total ] = await Promise.all([Venta_Temporal.find()
-                //{estado:true}, 'vt_id_prod vt_prec_venta vt_cantidad vt_total vt_fecha'
-                .populate('Productos','nom_prod')
-                .skip( desde ),
+    const [ venta_temporal, total ] = await Promise.all([Venta_Temporal.find({estado:true})
+                .populate({path:'vt_id_prod',select:'nom_prod', model:'Productos' }),
                 Venta_Temporal.countDocuments()
     ]);
 

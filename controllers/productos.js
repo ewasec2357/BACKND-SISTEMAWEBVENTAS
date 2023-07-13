@@ -4,13 +4,14 @@ const Productos = require('../models/productos');
 const getProductos = async(req, res = response) => {
 
 
-    const productos= await Productos.find()
-                            .populate('categorias','nom_cat')
-                            console.log(productos);
+    const [productos, total]= await Promise.all([Productos.find({estado:true})
+                            .populate({path:'id_cat',select:'nom_cat', model:'Categorias' }),
+                            Productos.countDocuments()]);
 
     res.json({
         ok: true,
-        productos
+        productos,
+        total
     });
 
 }
