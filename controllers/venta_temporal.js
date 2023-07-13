@@ -3,8 +3,8 @@ const Venta_Temporal = require('../models/venta_temporal');
 
 const getVenta_Temporal = async(req, res = response) => {
 
-    const [ venta_temporal, total ] = await Promise.all([Venta_Temporal.find({estado:true})
-                //.populate({path:'vt_id_prod',select:'nom_prod', model:'Productos' }),
+    const [ venta_temporal, total ] = await Promise.all([Venta_Temporal.find()
+                .populate({path:'vt_id_prod',select:'nom_prod', model:'Productos' }),
                 ,Venta_Temporal.countDocuments()]);
 
     res.json({
