@@ -24,7 +24,7 @@ const crearVenta_Temporal = async (req, res) => {
       for (let i = 0; i < ventas_temporales.length; i++) {
         const venta_temporal = new Venta_Temporal(ventas_temporales[i]);
         const venta_temporalDB = await venta_temporal.save();
-        console.log(venta_temporalDB);
+        console.log(venta_temporal);
         ventas_temporalesDB.push(venta_temporalDB);
       }
   
