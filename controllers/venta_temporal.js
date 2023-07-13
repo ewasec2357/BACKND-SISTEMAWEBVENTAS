@@ -3,7 +3,8 @@ const Venta_Temporal = require('../models/venta_temporal');
 
 const getVenta_Temporal = async(req, res = response) => {
 
-    const [ venta_temporal, total ] = await Promise.all([Venta_Temporal.find()
+    const [ venta_temporal, total ] = await Promise.all([Venta_Temporal.find({estado:true},
+                'vt_id_prod vt_prec_venta vt_cantidad vt_total vt_fecha')
                 .populate({path:'vt_id_prod',select:'nom_prod', model:'Productos' }),
                 ,Venta_Temporal.countDocuments()]);
 
