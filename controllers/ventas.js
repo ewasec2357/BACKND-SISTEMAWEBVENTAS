@@ -5,13 +5,13 @@ const getVentas = async(req, res = response) => {
 
     const [ ventas, total ] = await Promise.all([Ventas.find({}, 
                 'alq_cochera fecha_venta subtot_venta igv_venta tot_venta detalle_venta')
-                .populate({path:'detalle_venta',populate:{
-                    path:'vt_id_prod',select:'nom_prod', model:'Productos' 
-                }}),
+                .populate({path:'vt_id_prod',select:'nom_prod', model:'Productos'}),
+                //.populate({path:'detalle_venta',populate:{
+                //    path:'vt_id_prod',select:'nom_prod', model:'Productos' 
+                //}}),
                 Ventas.countDocuments()
     ]);
-
-
+    
     res.json({
         ok: true,
         ventas,
