@@ -1,5 +1,6 @@
 const { response } = require('express');
 const Ventas = require('../models/ventas');
+const Venta_Temporal = require('../models/venta_temporal');
 
 const getVentas = async(req, res = response) => {
 
@@ -17,18 +18,26 @@ const getVentas = async(req, res = response) => {
 
 }
 
-const crearVenta = async(req, res) => {
-
+const crearVenta = async(req, res = response) => { 
+    
     try {
-
         const ventas = new Ventas( req.body) 
-
         const ventasDB = await ventas.save()
+
+        const {detalle_venta} = req.body;
+        let vtupdate = [];
+
+        for (let i = 0; i < detalle_venta.length; i++) {
+
+            detalle_venta[i].estado = false;
+            const vt = await Venta_Temporal.findByIdAndUpdate( detalle_venta[i]._id, detalle_venta[i], { new: true } );
+            vtupdate.push(vt);
+        }
+
         res.json({
             ok: true,
             ventasDB
-        }) 
-        ;
+        });
 
     } catch (error) {
         console.log(error)
@@ -52,7 +61,7 @@ const actualizarVenta = async (req, res = response) => {
             return res.status(404).json({
                 ok: true,
                 msg: 'La venta no fue encontrada por id',
-            });
+            });                                                    
         }
 
         const cambiosventas = { ...req.body,ventas: id }
@@ -90,6 +99,16 @@ const borrarVenta = async (req, res = response) => {
             });
         }
 
+        const {detalle_venta} = ventas;
+        let vtupdate = [];
+        
+        for (let i = 0; i < detalle_venta.length; i++) {
+            
+            detalle_venta[i].estado = true;
+            const vt = await Venta_Temporal.findByIdAndUpdate( detalle_venta[i]._id, detalle_venta[i], { new: true } );
+            vtupdate.push(vt);
+        }
+        
         await Ventas.findByIdAndDelete( id );
 
         res.json({
