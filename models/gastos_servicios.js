@@ -12,6 +12,10 @@ const Gastos_ServiciosSchema = Schema({
         type: String,
         required:true
     },
+    num_gasto: {
+        type: String,
+        required:true
+    },
     fecha_gasto:{
         type:Date,
         required:true,
