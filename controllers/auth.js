@@ -7,7 +7,7 @@ const { generarJWT } = require('../helpers/jwt');
 
 const login = async( req, res = response ) => {
 
-    const { nom_usuario, password } = req.body;
+    const { nom_usuario, password} = req.body;
 
     try {
 
@@ -28,9 +28,12 @@ const login = async( req, res = response ) => {
         }
 
         const token = await generarJWT( usuarioDB.id );
+
+        const role =  usuarioDB.rol;
         
         res.json({
             ok: true,
+            rol : role,
             token
         })
 
