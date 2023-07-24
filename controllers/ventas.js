@@ -1,6 +1,7 @@
 const { response } = require('express');
 const Ventas = require('../models/ventas');
 const Venta_Temporal = require('../models/venta_temporal');
+const Productos = require('../models/productos');
 
 const getVentas = async(req, res = response) => {
 
@@ -26,14 +27,21 @@ const crearVenta = async(req, res = response) => {
 
         const {detalle_venta} = req.body;
         let vtupdate = [];
+        let produpdate = [];
 
         for (let i = 0; i < detalle_venta.length; i++) {
 
             detalle_venta[i].estado = false;
             const vt = await Venta_Temporal.findByIdAndUpdate( detalle_venta[i]._id, detalle_venta[i], { new: true } );
+            
+            const productosDB = await Productos.findById( detalle_venta[i].vt_id_prod );
+            productosDB.stock_prod = productosDB.stock_prod - detalle_venta[i].vt_cantidad;
+            const productoActualizado = await Productos.findByIdAndUpdate( detalle_venta[i].vt_id_prod, productosDB, { new: true } )
+            produpdate.push(productoActualizado);
             vtupdate.push(vt);
         }
-
+        console.log(produpdate);
+        console.log(vtupdate);
         res.json({
             ok: true,
             ventasDB
