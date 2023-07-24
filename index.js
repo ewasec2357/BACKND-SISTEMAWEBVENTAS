@@ -8,7 +8,8 @@ const { dbConnection } = require('./database/config');
 
 // Crear el servidor de express
 const app = express();
-   
+
+moment.tz.setDefault('America/Lima');
 const fechaActualEnZonaHoraria = moment();
 console.log(fechaActualEnZonaHoraria);
 
