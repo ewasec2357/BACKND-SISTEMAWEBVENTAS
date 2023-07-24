@@ -1,12 +1,16 @@
 require('dotenv').config();
 
 const express = require('express');
+const moment = require('moment-timezone');
 const cors = require('cors');
 
 const { dbConnection } = require('./database/config');
 
 // Crear el servidor de express
 const app = express();
+   
+const fechaActualEnZonaHoraria = moment();
+console.log(fechaActualEnZonaHoraria);
 
 // Configurar CORS
 app.use( cors() );
