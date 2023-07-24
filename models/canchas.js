@@ -16,7 +16,7 @@ const CanchasSchema = Schema({
         required:true
     },
     fecha_alq: {
-        type: Date,
+        type: String,
         required:true
     },
     hora_ini: {

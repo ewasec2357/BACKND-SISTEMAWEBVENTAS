@@ -26,8 +26,8 @@ const crearVenta = async(req, res = response) => {
         const ventasDB = await ventas.save()
 
         const {detalle_venta} = req.body;
-        let vtupdate = [];
-        let produpdate = [];
+        //let vtupdate = [];
+        //let produpdate = [];
 
         for (let i = 0; i < detalle_venta.length; i++) {
 
@@ -37,11 +37,11 @@ const crearVenta = async(req, res = response) => {
             const productosDB = await Productos.findById( detalle_venta[i].vt_id_prod );
             productosDB.stock_prod = productosDB.stock_prod - detalle_venta[i].vt_cantidad;
             const productoActualizado = await Productos.findByIdAndUpdate( detalle_venta[i].vt_id_prod, productosDB, { new: true } )
-            produpdate.push(productoActualizado);
-            vtupdate.push(vt);
+            //produpdate.push(productoActualizado);
+            //vtupdate.push(vt);
         }
-        console.log(produpdate);
-        console.log(vtupdate);
+        //console.log(produpdate);
+        //console.log(vtupdate);
         res.json({
             ok: true,
             ventasDB
@@ -106,15 +106,19 @@ const borrarVenta = async (req, res = response) => {
                 msg: 'La venta no fue encontrada por id',
             });
         }
-
         const {detalle_venta} = ventas;
-        let vtupdate = [];
+        //let vtupdate = [];
         
         for (let i = 0; i < detalle_venta.length; i++) {
             
             detalle_venta[i].estado = true;
             const vt = await Venta_Temporal.findByIdAndUpdate( detalle_venta[i]._id, detalle_venta[i], { new: true } );
-            vtupdate.push(vt);
+
+            const productosDB = await Productos.findById( detalle_venta[i].vt_id_prod );
+            productosDB.stock_prod = productosDB.stock_prod + detalle_venta[i].vt_cantidad;
+            const productoActualizado = await Productos.findByIdAndUpdate( detalle_venta[i].vt_id_prod, productosDB, { new: true } )
+            
+            //vtupdate.push(vt);
         }
         
         await Ventas.findByIdAndDelete( id );
