@@ -1,4 +1,6 @@
 const { response } = require('express');
+const moment = require('moment');
+
 const Ventas = require('../models/ventas');
 const Venta_Temporal = require('../models/venta_temporal');
 const Productos = require('../models/productos');
@@ -20,8 +22,18 @@ const getVentas = async(req, res = response) => {
 }
 
 const crearVenta = async(req, res = response) => { 
+
+    const body = new Ventas( req.body);
+    console.log("INICIO",body);
+    body.fecha_venta = moment(body.fecha_venta).subtract(5, 'hours'); 
     
-    try {
+    console.log("FIN",body);
+
+    res.json({
+        ok: true,
+    });
+
+    /*try {
         const ventas = new Ventas( req.body) 
         const ventasDB = await ventas.save()
 
@@ -53,7 +65,7 @@ const crearVenta = async(req, res = response) => {
             ok: false,
             msg: 'Hable con el administrador'
         })
-    }
+    }*/
 
 
 }
