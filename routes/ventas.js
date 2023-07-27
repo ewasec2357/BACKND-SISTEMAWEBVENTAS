@@ -14,19 +14,7 @@ const router = Router();
 
 router.get( '/', validarJWT , getVentas );
 
-router.post( '/',
-    [   
-        validarJWT,
-        check('alq_cochera', 'La fecha de compra es obligatoria').not().isEmpty(),
-        check('fecha_venta', 'El subtotal de la compra es obligatorio').not().isEmpty(),
-        check('subtot_venta', 'El igv de la compra es obligatorio').not().isEmpty(),
-        check('igv_venta', 'El total de la compra es obligatorio').not().isEmpty(),
-        check('tot_venta', 'El detalle de la compra es obligatorio').not().isEmpty(),
-        check('detalle_venta','El detalle de venta es obligatorio').not().isEmpty(),
-        validarCampos,
-    ], 
-    crearVenta, 
-);
+router.post( '/', validarJWT ,crearVenta );
 
 router.put( '/:id',
     validarJWT,

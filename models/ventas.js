@@ -2,7 +2,11 @@ const { Schema, model } = require('mongoose');
 
 const VentasSchema = Schema({
 
-    alq_cochera:{
+    efectivo_cochera:{
+        type: Number,
+        required:true
+    },
+    yape_cochera:{
         type: Number,
         required:true
     },
