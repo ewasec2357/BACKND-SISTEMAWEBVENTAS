@@ -26,9 +26,8 @@ const crearCancha = async(req, res) => {
 
     const { cod_cancha, ubi_cancha } = req.body;
 
-    //const body = new Canchas( req.body);
-    //console.log("LO QUE ENVIAMOS",body);
-    //body.fecha_alq = moment(body.fecha_alq).subtract(5, 'hours'); 
+    const body = new Canchas( req.body);
+    body.fecha_alq = moment(body.fecha_alq).subtract(5, 'hours'); 
 
     try {
 
@@ -39,7 +38,7 @@ const crearCancha = async(req, res) => {
                         msg: 'El codigo ya está registrado en '+ existecancha.ubi_cancha
                     });              
         }
-        const canchas = new Canchas(req.body) 
+        const canchas = new Canchas(body) 
 
         const canchasDB = await canchas.save()
         res.json({
