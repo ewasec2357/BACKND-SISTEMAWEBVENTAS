@@ -1,4 +1,6 @@
 const { response } = require('express');
+const moment = require('moment');
+
 const Canchas = require('../models/canchas');
 
 const getCanchas = async(req, res) => {
@@ -23,6 +25,11 @@ const getCanchas = async(req, res) => {
 const crearCancha = async(req, res) => {
 
     const { cod_cancha, ubi_cancha } = req.body;
+
+    const body = new Canchas( req.body);
+    console.log("LO QUE ENVIAMOS",body);
+    body.fecha_alq = moment(body.fecha_alq).subtract(5, 'hours'); 
+
     try {
 
         const existecancha = await Canchas.findOne({'cod_cancha':cod_cancha,'ubi_cancha':ubi_cancha });
@@ -32,7 +39,7 @@ const crearCancha = async(req, res) => {
                         msg: 'El codigo ya está registrado en '+ existecancha.ubi_cancha
                     });              
         }
-        const canchas = new Canchas(req.body) 
+        const canchas = new Canchas(body) 
 
         const canchasDB = await canchas.save()
         res.json({

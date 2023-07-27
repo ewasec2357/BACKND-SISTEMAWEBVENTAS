@@ -24,13 +24,13 @@ const getVentas = async(req, res = response) => {
 const crearVenta = async(req, res = response) => { 
 
     const body = new Ventas( req.body);
-    console.log("LO QUE ENVIAMOS",body);
-    body.fecha_venta = moment(body.fecha_venta).subtract(5, 'hours'); 
+    //console.log("LO QUE ENVIAMOS",body);
+    //body.fecha_venta = moment(body.fecha_venta).subtract(5, 'hours'); 
 
     try {
         const ventas = new Ventas( body) 
         const ventasDB = await ventas.save();
-        console.log("RESPUESTA SERVER",ventasDB);
+        //console.log("RESPUESTA SERVER",ventasDB);
         const {detalle_venta} = req.body;
         //let vtupdate = [];
         //let produpdate = [];
