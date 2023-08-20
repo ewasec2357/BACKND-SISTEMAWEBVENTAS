@@ -28,6 +28,7 @@ app.use( '/api/usuarios',          require('./routes/usuarios') );
 app.use( '/api/todo',              require('./routes/busquedas') );
 app.use( '/api/login',             require('./routes/auth') );
 //app.use( '/api/upload',            require('./routes/uploads') );
+app.use( '/api/reserva',           require('./routes/reserva'));
 app.use( '/api/categorias',        require('./routes/categorias'));
 app.use( '/api/productos',         require('./routes/productos'));
 app.use( '/api/compras',           require('./routes/compras'));
