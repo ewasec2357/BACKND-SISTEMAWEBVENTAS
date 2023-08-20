@@ -15,10 +15,8 @@ const ReservaSchema = Schema({
         required: true,
     },
     color: {
-        type: Schema.Types.ObjectId,
-        ref:'ReservaColor',
-        required:true
-    },
+        primary: { type: String, required: true }
+      }
 }, 
 
 {  collection: 'Reserva' });
