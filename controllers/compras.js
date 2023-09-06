@@ -28,11 +28,13 @@ const getCompraIdProducto = async(req, res) =>{
 
     try {
 
-        const comprasById = await Compras.find();
+        const comprasById = await Compras.find({estado:true});
+
+        comprasById = comprasById.filter( compra=> compra.detalle_comp.nom_prod === nom_prod);
 
         res.json({
             ok: true,
-            comprasById
+            comprasById: [comprasById[0],comprasById[1],comprasById[2]],
         }) ;
 
     }catch (error) {
