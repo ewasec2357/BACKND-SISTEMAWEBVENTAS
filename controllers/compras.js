@@ -36,7 +36,7 @@ const getCompraIdProducto = async(req, res) =>{
             return dateB - dateA;
           });
 
-        let tmpArray;
+        let tmpArray = [];
         comprasById.forEach((element) => {
             element.detalle_comp.forEach((element2) => {
                 if( element2.nom_prod === nomProd){
