@@ -24,7 +24,7 @@ const getCompras = async(req, res) => {
 
 const getCompraIdProducto = async(req, res) =>{
     
-    const nom_prod  = req.params.id;
+    const nomProd  = req.params.id;
 
     try {
 
@@ -36,11 +36,21 @@ const getCompraIdProducto = async(req, res) =>{
             return dateB - dateA;
           });
 
-        // comprasById = comprasById.filter( compra=> compra.detalle_comp.nom_prod === nom_prod);
+        let tmpArray;
+        comprasById.forEach((element) => {
+            element.detalle_comp.forEach((element2) => {
+                if( element2.nom_prod === nomProd){
+                    if (tmpArray.length <= 3) {
+                        tmpArray.push(element2)
+                    }
+                }
+            });
+        });
 
         res.json({
             ok: true,
-            comprasById
+            comprasById: comprasById.length,
+            tmpArray
         }) ;
 
     }catch (error) {
