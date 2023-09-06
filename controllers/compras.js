@@ -37,11 +37,13 @@ const getCompraIdProducto = async(req, res) =>{
           });
 
         let comprasByProdName = [];
+        let fechasCompras = [];
         comprasById.forEach((element) => {
             element.detalle_comp.forEach((element2) => {
                 if( element2.nom_prod === nomProd){
                     if (comprasByProdName.length <= 3) {
-                        comprasByProdName.push(element2)
+                        comprasByProdName.push(element2);
+                        fechasCompras.push(element.fecha_comp);
                     }
                 }
             });
@@ -49,7 +51,8 @@ const getCompraIdProducto = async(req, res) =>{
 
         res.json({
             ok: true,
-            comprasByProdName
+            comprasByProdName,
+            fechasCompras
         }) ;
 
     }catch (error) {
