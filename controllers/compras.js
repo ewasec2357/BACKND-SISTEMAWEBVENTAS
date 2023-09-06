@@ -30,7 +30,7 @@ const getCompraIdProducto = async(req, res) =>{
 
         const comprasById = await Compras.find({estado:true});
 
-        comprasById = comprasById.sort((a, b) => {
+        comprasById.sort((a, b) => {
             const dateA = new Date(a.fecha_comp);
             const dateB = new Date(b.fecha_comp);
             return dateB - dateA;
