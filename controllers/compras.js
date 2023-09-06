@@ -22,6 +22,30 @@ const getCompras = async(req, res) => {
 
 }
 
+const getCompraIdProducto = async(req, res) =>{
+    
+    const nom_prod  = req.params.id;
+
+    try {
+
+        const comprasById = await Compras.find({'detalle_comp.nom_prod':nom_prod});
+
+        res.json({
+            ok: true,
+            comprasById
+        }) ;
+
+    }catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+    }
+
+}
 const crearCompra = async(req, res) => {
 
     
@@ -133,5 +157,6 @@ const borrarCompra = async (req, res = response) => {
 module.exports = {
     getCompras,
     crearCompra,
-    borrarCompra
+    borrarCompra,
+    getCompraIdProducto
 }

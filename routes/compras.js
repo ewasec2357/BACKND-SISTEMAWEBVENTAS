@@ -5,7 +5,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 
-const { getCompras, crearCompra, borrarCompra } = require('../controllers/compras');
+const { getCompras, crearCompra, borrarCompra, getCompraIdProducto } = require('../controllers/compras');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
 
@@ -13,6 +13,8 @@ const router = Router();
 
 
 router.get( '/', validarJWT , getCompras );
+
+router.get( '/:id', validarJWT , getCompraIdProducto );
 
 router.post( '/',
     [   
