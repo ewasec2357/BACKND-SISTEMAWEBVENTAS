@@ -28,7 +28,7 @@ const getCompraIdProducto = async(req, res) =>{
 
     try {
 
-        const comprasById = await Compras.find({'detalle_comp.nom_prod':nom_prod});
+        const comprasById = await Compras.find();
 
         res.json({
             ok: true,
