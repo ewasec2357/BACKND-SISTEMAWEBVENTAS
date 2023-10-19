@@ -1,12 +1,13 @@
 const { response } = require('express');
 const Productos = require('../models/productos');
+const e = require('express');
 
 const getProductoById = async(req, res = response) => {
 
     const id  = req.params.id;
     
   
-        const ProductoById = await Productos.findById( id );
+        const ProductoById = await Productos.findById( id ).populate({path:'id_cat',select:'nom_cat', model:'Categorias' });
 
         if ( !ProductoById ) {
             return res.status(404).json({
@@ -121,11 +122,12 @@ const borrarProducto = async (req, res = response) => {
             });
         }
 
-        await Productos.findByIdAndDelete( id );
+        productoUpdate.estado = false;
+        await Productos.findByIdAndUpdate( id, productoUpdate)
 
         res.json({
             ok: true,
-            msg: 'Producto borrado'
+            msg: 'Producto de baja'
         }); 
 
     } catch (error) {
@@ -134,7 +136,8 @@ const borrarProducto = async (req, res = response) => {
 
         res.status(500).json({
             ok: false,
-            msg: 'Hable con el administrador'
+            msg: 'Hable con el administrador',
+            error: error
         })
     }
 }
