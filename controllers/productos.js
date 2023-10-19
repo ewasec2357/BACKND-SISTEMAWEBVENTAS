@@ -1,6 +1,29 @@
 const { response } = require('express');
 const Productos = require('../models/productos');
 
+const getProductoById = async(req, res = response) => {
+
+    const id  = req.params.id;
+    
+  
+        const ProductoById = await Productos.findById( id );
+
+        if ( !ProductoById ) {
+            return res.status(404).json({
+                ok: true,
+                msg: 'Producto no encontrado por id',
+            });
+        }
+
+
+
+    res.json({
+        ok: true,
+        ProductoById
+    });
+
+}
+
 const getProductos = async(req, res = response) => {
 
 
@@ -89,9 +112,9 @@ const borrarProducto = async (req, res = response) => {
 
     try {
         
-        const productos = await Productos.findById( id );
+        const productoUpdate = await Productos.findById( id );
 
-        if ( !productos ) {
+        if ( !productoUpdate ) {
             return res.status(404).json({
                 ok: true,
                 msg: 'El producto no fue encontrado por id',
@@ -118,6 +141,7 @@ const borrarProducto = async (req, res = response) => {
 
 
 module.exports = {
+    getProductoById,
     getProductos,
     crearProducto,
     actualizarProducto,
