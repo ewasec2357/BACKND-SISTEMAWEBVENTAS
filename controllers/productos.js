@@ -1,6 +1,5 @@
 const { response } = require('express');
 const Productos = require('../models/productos');
-const e = require('express');
 
 const getProductoById = async(req, res = response) => {
 

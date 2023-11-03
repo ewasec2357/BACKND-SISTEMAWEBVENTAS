@@ -6,11 +6,22 @@ const InventarioSchema = Schema({
         type: Date,
         required:true
     },
-    inventario:{
-        type: Array,
-        items:[Schema.Types.Array],
-        ref: 'Detalle_Producto',
-    }
+    inventario: {
+        id_prod: { 
+            type: Schema.Types.ObjectId,
+            ref: 'Productos',
+            required:true
+        },
+        nom_prod: { 
+            type: Schema.Types.ObjectId,
+            ref: 'Productos',
+            required:true
+        },
+        cantidad: { 
+            type: Number, 
+            required: true 
+        }            
+    },
 }, 
 
 {  collection: 'Inventario' });
