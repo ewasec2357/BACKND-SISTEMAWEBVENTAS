@@ -7,15 +7,14 @@ const InventarioSchema = Schema({
         required:true
     },
     inventario: {
+        nom_prod: { 
+            type: String,
+            required: true
+        },
         id_prod: { 
             type: Schema.Types.ObjectId,
             ref: 'Productos',
-            required:true
-        },
-        nom_prod: { 
-            type: Schema.Types.ObjectId,
-            ref: 'Productos',
-            required:true
+            required: true
         },
         cantidad: { 
             type: Number, 
