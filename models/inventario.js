@@ -23,7 +23,12 @@ const InventarioSchema = Schema({
     },
     inventario: [
         ProductoInventarioSchema
-    ]
+    ],
+    estado: {
+        type: Boolean,
+        required: true,
+        default:true
+    },
 }, {  collection: 'Inventario' });
 
 
