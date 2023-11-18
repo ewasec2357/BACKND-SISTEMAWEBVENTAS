@@ -1,10 +1,6 @@
 const { Schema, model } = require('mongoose');
 
 const ProductoInventarioSchema = new Schema({
-    nom_prod: { 
-        type: String,
-        required: true
-    },
     id_prod: { 
         type: Schema.Types.ObjectId,
         ref: 'Productos',

@@ -5,10 +5,10 @@ const Inventarios = require('../models/inventario');
 const getInventario = async(req, res) => {
 
 
-    const [ inventarios, total ] = await Promise.all([Inventarios.find({estado:true}, 'fecha inventario.cantidad')
-            .populate({path:'inventario.id_prod',   select:'_id', model:'Productos' })
-            .populate({path:'inventario.nom_prod',  select:'nom_prod', model:'Productos' }),
-            Inventarios.countDocuments()
+    const [ inventarios, total ] = await Promise.all([
+        Inventarios.find({estado:true})
+            .populate({path:'inventario.id_prod', select:'_id nom_prod', model:'Productos' }),
+        Inventarios.countDocuments()
     ]);
 
     res.json({
