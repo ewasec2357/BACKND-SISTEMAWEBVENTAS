@@ -1,29 +1,31 @@
 const { Schema, model } = require('mongoose');
 
-const InventarioSchema = Schema({
+const ProductoInventarioSchema = new Schema({
+    nom_prod: { 
+        type: String,
+        required: true
+    },
+    id_prod: { 
+        type: Schema.Types.ObjectId,
+        ref: 'Productos',
+        required: true
+    },
+    cantidad: { 
+        type: Number, 
+        required: true 
+    }  
+})
+
+const InventarioSchema = new Schema({
 
     fecha: {
-        type: Date,
+        type: string,
         required:true
     },
-    inventario: {
-        nom_prod: { 
-            type: String,
-            required: true
-        },
-        id_prod: { 
-            type: Schema.Types.ObjectId,
-            ref: 'Productos',
-            required: true
-        },
-        cantidad: { 
-            type: Number, 
-            required: true 
-        }            
-    },
-}, 
-
-{  collection: 'Inventario' });
+    inventario: [
+        ProductoInventarioSchema
+    ]
+}, {  collection: 'Inventario' });
 
 
 InventarioSchema.method('toJSON', function() {
