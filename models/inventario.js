@@ -16,10 +16,9 @@ const ProductoInventarioSchema = new Schema({
     }  
 })
 
-const InventarioSchema = new Schema({
-
+const InventarioSchema = Schema({
     fecha: {
-        type: string,
+        type: Date, 
         required:true
     },
     inventario: [
