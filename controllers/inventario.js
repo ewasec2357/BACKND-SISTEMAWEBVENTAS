@@ -7,7 +7,7 @@ const getInventario = async(req, res) => {
 
     const [ inventarios, total ] = await Promise.all([
         Inventarios.find({estado:true})
-            .populate({path:'inventario.id_prod', select:'_id nom_prod', model:'Productos' }),
+            .populate({path:'inventario.id_prod', select:'id_cat _id nom_prod', model:'Productos' }),
         Inventarios.countDocuments()
     ]);
 
